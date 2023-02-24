@@ -5,9 +5,9 @@
 ## 云编译使用方法点击[链接](https://p3terx.com/archives/build-openwrt-with-github-actions.html)
 
 <details>
-<summary>## ipq6000仓库更新日志:</summary>
+<summary>ipq6000仓库更新日志:</summary>
 08.19更新日志：  
-1.ssr-plus更新到最新版。  
+* ssr-plus更新到最新版。  
 2.添加了自动重启app，定时重启能提高使用体验，  
 3.去掉了turboacc中的bbr加速状态，kernel 4.4不支持bbr加速。  
 
