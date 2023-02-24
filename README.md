@@ -4,6 +4,13 @@
 
 ## 云编译使用方法点击[链接](https://p3terx.com/archives/build-openwrt-with-github-actions.html)
 
+### rm1800固件截图
+
+![png](./breeze/preview/1.png)
+![png](./breeze/preview/2.png)
+![png](./breeze/preview/3.png)
+![png](./breeze/preview/4.png)
+
 <details>
 <summary>ipq6000仓库更新日志:</summary>
     
