@@ -4,7 +4,7 @@
 
 ## 云编译使用方法点击[链接](https://p3terx.com/archives/build-openwrt-with-github-actions.html)
 
-## ipq6000仓库更新日志：  
+## <summary>ipq6000仓库更新日志：  </summary>
 >1 08.19更新日志：  
 >>2 1.ssr-plus更新到最新版。  
 2.添加了自动重启app，定时重启能提高使用体验，  
