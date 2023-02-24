@@ -6,6 +6,7 @@
 
 <details>
 <summary>ipq6000仓库更新日志:</summary>
+  
 08.19更新日志：  
 * ssr-plus更新到最新版。  
 2.添加了自动重启app，定时重启能提高使用体验，  
