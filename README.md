@@ -4,9 +4,10 @@
 
 ## 云编译使用方法点击[链接](https://p3terx.com/archives/build-openwrt-with-github-actions.html)
 
+<details>
 ## <summary>ipq6000仓库更新日志：  </summary>
->1 08.19更新日志：  
->>2 1.ssr-plus更新到最新版。  
+08.19更新日志：  
+1.ssr-plus更新到最新版。  
 2.添加了自动重启app，定时重启能提高使用体验，  
 3.去掉了turboacc中的bbr加速状态，kernel 4.4不支持bbr加速。  
 
@@ -71,3 +72,5 @@ r22.12.25存在几个有bug的阶段。
 2.ssr-plus插件，trojan增加支持识别链接是否允许 “allowInsecure”。（only ipq6000）  
 3.原ipq6000仓库改名ipq6018并不再更新。新仓库依然叫ipq6000。  
 4.更新GitHub Actions output函数。  
+
+</details>
