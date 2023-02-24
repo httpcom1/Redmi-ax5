@@ -141,43 +141,24 @@ jobs:
         name: rm1800${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
 
-    - name: Upload firmware to cowtransfer （上传固件到cowtransfer）
-      id: cowtransfer
-      if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
-      run: |
-        curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee cowtransfer.log
-        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
-        echo "url=$(cat cowtransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_OUTPUT
-
-    - name: Upload firmware to WeTransfer (上传固件到WeTransfer)
-      id: wetransfer
-      if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
-      run: |
-        curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
-        echo "url=$(cat wetransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_OUTPUT
-
     - name: Generate release tag （生成发布标签）
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
-        echo "release_tag=rm1800_$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
-        touch release.txt
-        echo "rm1800&ax5固件" >> release.txt
-        [ $UPLOAD_COWTRANSFER = true ] && echo "🔗 [Cowtransfer](${{ steps.cowtransfer.outputs.url }})" >> release.txt
-        [ $UPLOAD_WETRANSFER = true ] && echo "🔗 [WeTransfer](${{ steps.wetransfer.outputs.url }})" >> release.txt
-        echo "status=success" >> $GITHUB_OUTPUT
-
+        time=$(date +%Y%m%d%H%M)
+        release_tag="$time"
+        release_name="小米RM1800&AX5-OpenWrt-内核4.4-256M-$(date +%Y%m%d)"
+        echo "release_name=$release_name" >> $GITHUB_OUTPUT
+        echo "release_tag=$release_tag" >> $GITHUB_OUTPUT    
+        
     - name: Upload firmware to release （上传固件并发布）
       uses: softprops/action-gh-release@v1
       if: steps.tag.outputs.status == 'success' && !cancelled()
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ steps.tag.outputs.release_tag }}
-        body_path: release.txt
+        name: ${{ steps.generate_name.outputs.release_name }}
+        tag: ${{ steps.tag.outputs.release_tag }}
         files: ${{ env.FIRMWARE }}/*
 
     - name: Delete workflow runs （清理工作流）
