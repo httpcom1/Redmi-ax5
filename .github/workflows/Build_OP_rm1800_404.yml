@@ -76,7 +76,8 @@ jobs:
     - name: Build firmware
       working-directory: ./openwrt
       run: |      
-        make -j$(nproc) V=s
+        echo -e "$(nproc) thread compile"
+        make -j$(nproc) || make -j1 || make -j1 V=s
         
     - name: Assemble Artifact
       id: assemble_artifact
@@ -93,17 +94,17 @@ jobs:
         
         rom=openwrt/bin/targets/ipq60xx/generic/openwrt-ipq60xx-generic-xiaomi_rm1800-squashfs-nand-sysupgrade.bin
         getmd5 $rom        
-        cp -a $rom ./ARM_Out/AE86Wrt-Xiaomi-rm1800-4.04-sysupgrade-$(date +%Y%m%d)_${md5}.bin
+        cp -a $rom ./ARM_Out/OpenWrt-Xiaomi-rm1800-4.04-sysupgrade-$(date +%Y%m%d)_${md5}.bin
         
         rom=openwrt/bin/targets/ipq60xx/generic/openwrt-ipq60xx-generic-xiaomi_rm1800-squashfs-nand-factory.ubi
         getmd5 $rom         
-        cp -a $rom ./ARM_Out/AE86Wrt-Xiaomi-rm1800-4.04-factory-$(date +%Y%m%d)_${md5}.ubi
+        cp -a $rom ./ARM_Out/OpenWrt-Xiaomi-rm1800-4.04-factory-$(date +%Y%m%d)_${md5}.ubi
                
     - name: Upload Firmwares
       uses: actions/upload-artifact@main
       with:
         name: RM1800-OpenWrt
-        path: ARM_Out/AE86* 
+        path: ARM_Out/Open* 
 
     - name: Upload config
       uses: actions/upload-artifact@main
@@ -129,7 +130,7 @@ jobs:
     - name: Create Release & Upload
       uses: ncipollo/release-action@v1
       with:
-        artifacts: ARM_Out/AE86*
+        artifacts: ARM_Out/Open*
         name: ${{ steps.generate_name.outputs.release_name }}
         tag: ${{ steps.generate_name.outputs.release_tag }}
         token: ${{ secrets.GITHUB_TOKEN }}
