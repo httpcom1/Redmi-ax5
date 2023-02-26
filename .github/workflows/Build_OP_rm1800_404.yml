@@ -1,4 +1,4 @@
-name: Build_rm1800_404
+name: Xiaomi_rm1800_404
 
 on: 
   repository_dispatch:
@@ -13,13 +13,13 @@ on:
 #    types: [started]
 
 jobs:
-  Build_rm1800_404:
+  Xiaomi_rm1800_404:
     runs-on: ubuntu-20.04
     steps:
     - name: Clone Repository
       uses: actions/checkout@v3
 
-    - name: Initialization environment
+    - name: Initialization environment (配置环境)
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
@@ -39,7 +39,7 @@ jobs:
         git config --global user.name 'GitHub Actions' && git config --global user.email 'noreply@github.com'
         df -h
         
-    - name: Clone source code
+    - name: Clone source code （拉取源码）
       env: 
         REPO_URL: https://github.com/sdf8057/ipq6000.git
         REPO_BRANCH: main
@@ -49,7 +49,7 @@ jobs:
         cp -f ../breeze/diy/b1.sh ./
         chmod +x ./b1.sh && ./b1.sh
 
-    - name: Update & Install feeds
+    - name: Update & Install feeds （升级及安装feeds）
       working-directory: ./openwrt
       run: |
         ./scripts/feeds update -a
@@ -59,27 +59,27 @@ jobs:
         sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='AE86Wrt-Xiaomi-RM1800-$(date +%Y%m%d)'/g" package/addition/default-settings/files/99-default-settings
       
               
-    - name: Configuration Customization - Build_RM1800_404
+    - name: Configuration Customization - Xiaomi_RM1800_404 （配置config）
       env:
         CONFIG_FILE: './config/rm1800.config'
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         cd openwrt && make defconfig
         
-    - name: Download package
+    - name: Download package （下载dl库）
       working-directory: ./openwrt
       run: |
         make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
-    - name: Build firmware
+    - name: Build firmware （开始编译固件）
       working-directory: ./openwrt
       run: |      
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 || make -j1 V=s
         
-    - name: Assemble Artifact
+    - name: Assemble Artifact （整理固件）
       id: assemble_artifact
       run: |
         rm -rf ./ARM_Out
@@ -100,25 +100,25 @@ jobs:
         getmd5 $rom         
         cp -a $rom ./ARM_Out/OpenWrt-Xiaomi-rm1800-4.04-factory-$(date +%Y%m%d)_${md5}.ubi
                
-    - name: Upload Firmwares
+    - name: Upload Firmwares （上传固件）
       uses: actions/upload-artifact@main
       with:
         name: RM1800-OpenWrt
-        path: ARM_Out/Open* 
+        path: ARM_Out/Open*
 
-    - name: Upload config
+    - name: Upload config （上传config）
       uses: actions/upload-artifact@main
       with:
         name: rm1800-config
         path: openwrt/.config
 
-    - name: Upload Packages
+    - name: Upload Packages （上传Packages）
       uses: actions/upload-artifact@main
       with:
         name: RM1800-404-Packages
         path: openwrt/bin/packages
         
-    - name: Generate Tag & Release Name
+    - name: Generate Tag & Release Name （创建标签及release）
       id: generate_name
       run: |
         time=$(date +%Y%m%d%H%M)
@@ -127,7 +127,7 @@ jobs:
         echo "release_name=$release_name" >> $GITHUB_OUTPUT
         echo "release_tag=$release_tag" >> $GITHUB_OUTPUT       
 
-    - name: Create Release & Upload
+    - name: Create Release & Upload （发布固件）
       uses: ncipollo/release-action@v1
       with:
         artifacts: ARM_Out/Open*
