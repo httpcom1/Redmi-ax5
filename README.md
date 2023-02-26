@@ -1,6 +1,6 @@
 # 欢迎来到 适用于 IPQ807x||IPQ60xx||MT798X 设备的 Openwrt 编译仓库
 
-## XiaoMi AX1800&RedMi AX5固件[下载](https://github.com/breeze303/Redmi-ax5/releases)
+## 小米AX1800&红米AX5通用固件[下载](https://github.com/breeze303/Redmi-ax5/releases)
 
 ## 云编译使用方法点击[链接](https://p3terx.com/archives/build-openwrt-with-github-actions.html)
 
