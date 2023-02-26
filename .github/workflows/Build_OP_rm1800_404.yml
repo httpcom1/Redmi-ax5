@@ -1,4 +1,4 @@
-name: Xiaomi_rm1800_404
+name: Xiaomi_AX1800_404
 
 on: 
   repository_dispatch:
@@ -13,7 +13,7 @@ on:
 #    types: [started]
 
 jobs:
-  Xiaomi_rm1800_404:
+  Xiaomi_ax1800_404:
     runs-on: ubuntu-20.04
     steps:
     - name: Clone Repository
@@ -59,7 +59,7 @@ jobs:
         sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='AE86Wrt-Xiaomi-RM1800-$(date +%Y%m%d)'/g" package/addition/default-settings/files/99-default-settings
       
               
-    - name: Configuration Customization - Xiaomi_RM1800_404 （配置config）
+    - name: Configuration Customization - Xiaomi_AX1800_404 （配置config）
       env:
         CONFIG_FILE: './config/rm1800.config'
       run: |
@@ -123,7 +123,7 @@ jobs:
       run: |
         time=$(date +%Y%m%d%H%M)
         release_tag="$time"
-        release_name="红米RM1800-OpenWrt-4.04内核-256M-$(date +%Y%m%d)"
+        release_name="小米AX1800&红米AX5-OpenWrt-4.04内核-256M-$(date +%Y%m%d)"
         echo "release_name=$release_name" >> $GITHUB_OUTPUT
         echo "release_tag=$release_tag" >> $GITHUB_OUTPUT       
 
