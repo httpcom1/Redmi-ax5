@@ -56,7 +56,7 @@ jobs:
 
         ./scripts/feeds install -a
 
-        sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='AE86Wrt-Xiaomi-RM1800-$(date +%Y%m%d)'/g" package/addition/default-settings/files/99-default-settings
+        sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='OpenWrt-Xiaomi-RM1800-$(date +%Y%m%d)'/g" package/addition/default-settings/files/99-default-settings
       
               
     - name: Configuration Customization - Xiaomi_AX1800_404 （配置config）
@@ -99,11 +99,7 @@ jobs:
         rom=openwrt/bin/targets/ipq60xx/generic/openwrt-ipq60xx-generic-xiaomi_rm1800-squashfs-nand-factory.ubi
         getmd5 $rom         
         cp -a $rom ./ARM_Out/OpenWrt-Xiaomi-rm1800-4.04-factory-$(date +%Y%m%d)_${md5}.ubi
-        
-        sha=openwrt/bin/targets/ipq60xx/generic/sha256sums
-        getmd5 $sha
-        cp -a $rom ./ARM_Out/sha256sums
-               
+                
     - name: Upload Firmwares （上传固件）
       uses: actions/upload-artifact@v3
       with:
