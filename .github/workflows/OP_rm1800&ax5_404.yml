@@ -99,6 +99,8 @@ jobs:
         rom=openwrt/bin/targets/ipq60xx/generic/openwrt-ipq60xx-generic-xiaomi_rm1800-squashfs-nand-factory.ubi
         getmd5 $rom         
         cp -a $rom ./ARM_Out/OpenWrt-Xiaomi-rm1800-4.04-factory-$(date +%Y%m%d)_${md5}.ubi
+        
+        cp -a openwrt/bin/targets/ipq60xx/generic/config.buildinfo ./ARM_Out
                 
     - name: Upload Firmwares （上传固件）
       uses: actions/upload-artifact@v3
