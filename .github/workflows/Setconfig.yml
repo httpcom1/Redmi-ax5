@@ -1,4 +1,4 @@
-name: Xiaomi_AX1800_404
+name: Setconfig
 
 on: 
   repository_dispatch:
@@ -18,7 +18,7 @@ on:
 #    types: [started]
 
 jobs:
-  Xiaomi_ax1800_404:
+  Setconfig:
     runs-on: ubuntu-20.04
     steps:
     - name: Clone Repository
