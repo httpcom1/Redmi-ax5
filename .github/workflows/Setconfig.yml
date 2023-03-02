@@ -77,6 +77,14 @@ jobs:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}    
         
+    - name: Configuration Customization - Xiaomi_AX1800_404 （配置config）
+      env:
+        CONFIG_FILE: './openwrt/.config'
+      run: |
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        cd openwrt && make defconfig    
+    
+        
     - name: Upload config （上传config）
       uses: actions/upload-artifact@v3
       with:
