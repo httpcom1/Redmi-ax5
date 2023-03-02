@@ -83,41 +83,5 @@ jobs:
         rm -rf ./ARM_Out
         mkdir -p ./ARM_Out/
         
-        cp -a openwrt/.config ./ARM_Out
-                
-    - name: Upload Firmwares （上传固件）
-      uses: actions/upload-artifact@v3
-      with:
-        name: RM1800-OpenWrt
-        path: ARM_Out/*
-
-    - name: Upload config （上传config）
-      uses: actions/upload-artifact@v3
-      with:
-        name: RM1800-config
-        path: openwrt/.config
-
-    #- name: Upload Packages （上传Packages）
-     # uses: actions/upload-artifact@v3
-      #with:
-       # name: RM1800-404-Packages
-        #path: openwrt/bin/packages
-        
-    - name: Generate Tag & Release Name （创建标签及release）
-      id: generate_name
-      run: |
-        time=$(date +%Y%m%d%H%M)
-        release_tag="$time"
-        release_name="小米AX1800&红米AX5-config-$(date +%Y%m%d)"
-        echo "release_name=$release_name" >> $GITHUB_OUTPUT
-        echo "release_tag=$release_tag" >> $GITHUB_OUTPUT       
-
-    - name: Create Release & Upload （发布固件）
-      uses: ncipollo/release-action@v1
-      with:
-        artifacts: ARM_Out/*
-        name: ${{ steps.generate_name.outputs.release_name }}
-        tag: ${{ steps.generate_name.outputs.release_tag }}
-        token: ${{ secrets.GITHUB_TOKEN }}
-       
-                               
+        cp -a openwrt/.config ../config/setconfig
+                                   
