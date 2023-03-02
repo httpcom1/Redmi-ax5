@@ -80,8 +80,5 @@ jobs:
     - name: Assemble Artifact （整理固件）
       id: assemble_artifact
       run: |
-        rm -rf ./ARM_Out
-        mkdir -p ./ARM_Out/
-        
-        cp -a openwrt/.config ../config/setconfig
+        cp -a openwrt/.config ./config/setconfig/$(date +%Y%m%d%).config
                                    
