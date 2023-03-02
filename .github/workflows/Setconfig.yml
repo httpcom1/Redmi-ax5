@@ -80,6 +80,6 @@ jobs:
     - name: Upload config （上传config）
       uses: actions/upload-artifact@v3
       with:
-        name: set-$(date +%Y%m%d)-config
+        name: set-"$(date +%Y%m%d%H%M)"-config
         path: openwrt/.config
                                    
