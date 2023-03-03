@@ -8,7 +8,19 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
-
+env:
+  REPO_URL: https://github.com/sdf8057/ipq6000.git
+  REPO_BRANCH: main
+  #FEEDS_CONF: feeds.conf.default
+  CONFIG_FILE: ./config/rm1800.config
+# DIY_P1_SH: ./scripts/diy-part1.sh
+# DIY_P2_SH: ./scripts/diy-part2.sh
+ # UPLOAD_BIN_DIR: false
+ # UPLOAD_FIRMWARE: true
+#  UPLOAD_COWTRANSFER: false
+ # UPLOAD_WETRANSFER: false
+ # UPLOAD_RELEASE: true
+  TZ: Asia/Shanghai
 # 定时触发编译
 #  schedule:
 #   - cron: 10 2 * * 6
@@ -28,7 +40,7 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo timedatectl set-timezone "Asia/Shanghai" 
+        sudo timedatectl set-timezone "$TZ" 
         sudo -E swapoff -a
         sudo -E rm -f /swapfile
         sudo -E docker image prune -a -f
@@ -45,10 +57,8 @@ jobs:
         df -h
         
     - name: Clone source code （拉取源码）
-      env: 
-        REPO_URL: https://github.com/sdf8057/ipq6000.git
-        REPO_BRANCH: main
       run: |
+        df -hT $PWD
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
         cp -f ../breeze/diy/b1.sh ./
@@ -60,12 +70,8 @@ jobs:
         ./scripts/feeds update -a
 
         ./scripts/feeds install -a
-
-        sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='OpenWrt-Xiaomi-RM1800-$(date +%Y%m%d)'/g" package/addition/default-settings/files/99-default-settings
     
-    - name: Configuration Customization - Xiaomi_AX1800_404 （配置config）
-      env:
-        CONFIG_FILE: './config/rm1800.config'
+    - name: Configuration Customization （配置config）
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         cd openwrt && make defconfig
