@@ -1,7 +1,7 @@
 # 欢迎来到 适用于 IPQ807x||IPQ60xx||MT798X 设备的 Openwrt 编译仓库
 
 ## 小米AX1800&红米AX5通用固件[下载](https://github.com/breeze303/Redmi-ax5/releases)
-###后台：192.168.1.1 账号root 密码password
+### 后台：192.168.1.1 账号root 密码password
 
 ## 云编译使用方法点击[链接](https://p3terx.com/archives/build-openwrt-with-github-actions.html)
 
