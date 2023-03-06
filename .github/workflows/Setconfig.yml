@@ -9,8 +9,8 @@ on:
         required: false
         default: 'false'
 env:
-  REPO_URL: https://github.com/coolsnowwolf/openwrt-gl-ax1800.git
-  REPO_BRANCH: master
+  REPO_URL: https://github.com/sdf8057/ipq6000.git
+  REPO_BRANCH: main
   #FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: ./config/rm1800.config
 # DIY_P1_SH: ./scripts/diy-part1.sh
