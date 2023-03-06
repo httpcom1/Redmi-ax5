@@ -71,10 +71,10 @@ jobs:
 
         ./scripts/feeds install -a
     
-   # - name: Configuration Customization （配置config）
-   #   run: |
-   #     [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-   #     cd openwrt && make defconfig
+    - name: Configuration Customization （配置config）
+      run: |
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        cd openwrt && make defconfig
         
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
