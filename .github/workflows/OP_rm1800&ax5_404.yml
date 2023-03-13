@@ -56,7 +56,7 @@ jobs:
 
         ./scripts/feeds install -a
 
-        sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='OpenWrt-Xiaomi-RM1800-$(date +%Y%m%d)'/g" package/addition/default-settings/files/99-default-settings
+        sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='OpenWrt-Xiaomi-RM1800-$(date +%Y%m%d)'/g" package/extra/default-settings/files/99-default-settings
       
               
     - name: Configuration Customization - Xiaomi_AX1800_404 （配置config）
